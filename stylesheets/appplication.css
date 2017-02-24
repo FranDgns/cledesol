@@ -1,0 +1,10 @@
+body {
+    height: 100vh;
+    background: red;
+}
+
+#place {
+    height: 100%;
+    width: 100%;
+    background: blue;
+}

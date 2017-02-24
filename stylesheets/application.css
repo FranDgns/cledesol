@@ -1,0 +1,12 @@
+body {
+    height: 100vh;
+    background: red;
+    padding: 0;
+    margin: 0;
+}
+
+#place {
+    height: 100%;
+    width: 100%;
+    background: #AEA;
+}
