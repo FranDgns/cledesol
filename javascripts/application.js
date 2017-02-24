@@ -45,7 +45,7 @@ Cledesol = {
 	var point = [lat, lng];
 	if (radius === undefined || radius === null)
 	    radius = 50000;
-	$.ajax("https://plateforme.api-agro.fr/api/records/1.0/search/?dataset=parcelles-vigicultures-sols&geofilter.distance=" + lat + "," + lng + "," + radius + "&fields=id_plot&apikey=7c7295c3ffbfce70ec53daa132c3a2825e3aa8ca439f27b33e342d20", {
+	$.ajax("https://plateforme.api-agro.fr/api/records/1.0/search/?dataset=parcelles-vigicultures-sols&geofilter.distance=" + lat + "," + lng + "," + radius + "&fields=type_sol&apikey=7c7295c3ffbfce70ec53daa132c3a2825e3aa8ca439f27b33e342d20", {
 	    success: function (data, status, request) {
 		if (data.nhits > 0) {
 		    console.log("Yes");
