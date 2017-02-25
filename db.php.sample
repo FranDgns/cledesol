@@ -1,0 +1,6 @@
+<?php
+$server="SERVER_NAME or SERVER_IP";
+$db="DB_NAME";
+$user="DB_USER_NAME";
+$pass="DB_USER_PASWORD";
+?>

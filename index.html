@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <title>Cle de Sol</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <link rel="stylesheet" href="stylesheets/leaflet.css" />
@@ -25,6 +26,7 @@
         border-radius: 4px;
       }
     </style>
+    <script src="javascripts/form2json.js"></script>
   </head>
   <body>
     <div id="soil-validation" class="modal fade" tabindex="-1" role="dialog">
@@ -56,9 +58,9 @@
             <h4 class="modal-title">Correction d'observation</h4>
 	  </div>
 	  <div class="modal-body">
-            <form action="http://217.174.196.5/cleserver.php" method="POST" enctype="application/json">
+            <form id="newInput" method="POST" >
 				<label for="user">Identifiant utilisateur: </label>
-				<input id="user" name="id_utilisateur" type="text" />
+				<input id="user" name="id_utilisateur" type="text" required />
 				</br>
 				<input type="hidden" name="x" />
 				<input type="hidden" name="y" />
@@ -102,12 +104,27 @@
 					<option value="hydromorphe">Hydromorphe</option>
 				</select>
 				<br/>
+				<input type="button" class="btn btn-primary" value="Enregistrer" onclick="callExtJs()" />
+				<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
 			</form>
+		<script>
+			function callExtJs() {
+				var array = $("#newInput").serializeArray();
+                var json = {};
+				
+                jQuery.each(array, function() {
+                    json[this.name] = this.value || '';
+                });
+				console.log(json);
+                pushFormData(json);
+				$("#soil-fix").modal("hide");
+			}
+		</script>
 	  </div>
-	  <div class="modal-footer">
+	  <!--<div class="modal-footer">
             <button type="button" class="btn btn-primary">Enregistrer</button>
             <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-	  </div>
+	  </div>-->
 	</div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
