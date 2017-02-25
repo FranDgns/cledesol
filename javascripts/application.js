@@ -112,9 +112,14 @@ Cledesol = {// objet javascript : on definit des attributs ou des valeures (sous
 		var json = JSON.parse(data);
 		console.log(json);
 		json.forEach(function(element) {
-		    mymarker = L.marker({
+		    mymarker = L.circleMarker({
 			lat: element.x,
-			lng: element.y,
+			lng: element.y
+		    }, {
+			color: "#502d16",
+			weight: 2,
+			fillColor: "#c87137",
+			fillOpacity: 0.7,
 			title: element.id_utilisateur
 		    });
 		    mymarker
@@ -144,7 +149,7 @@ Cledesol = {// objet javascript : on definit des attributs ou des valeures (sous
 		if (data.nhits > 0) {
 		    button.removeAttr("disabled");
 		    button.attr('data-soil-radius', radius); 
-		    button.html("Évaluer (" + data.nhits + " dans un rayon de " + radius + "km)")
+		    button.html("<span class='glyphicon glyphicon-ok'></span> Évaluer (" + data.nhits + " dans un rayon de " + radius + "km)")
 		} else {
 		    button.attr("disabled", "disabled");
 		    button.html("Aucune observation dans un rayon de " + radius + "km");

@@ -35,6 +35,14 @@ nav.navbar {
 }
 #place-actions #evaluate-button {
     padding: 1.2em;
-    background: #c87137;
-    border-color: #502d16;
+    margin: 0.5em auto;
+   /* background: #c87137;
+    border-color: #502d16;*/
+    font-weight: bold;
+}
+
+@media screen and (min-width: 800px) {
+    #place-actions #evaluate-button {
+	width: 400px;
+    }    
 }
