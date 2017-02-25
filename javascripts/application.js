@@ -73,20 +73,31 @@ Cledesol = {
 		        console.log(data);
 				// Calcule la pourcentage de type de sol par rapport aux resultats du rayon
 				// series1 = data
-				$.ajax("https://plateforme.api-agro.fr/api/records/1.0/analyze/?dataset=parcelles-vigicultures-sols&geofilter.distance=" + lat + "," + lng + "," + radius + "&fields=type_sol&apikey=7c7295c3ffbfce70ec53daa132c3a2825e3aa8ca439f27b33e342d20" + "&x=type_sol&y.serie.func=COUNT", {
+				$.ajax("https://plateforme.api-agro.fr/api/records/1.0/analyze/?dataset=parcelles-vigicultures-sols&geofilter.distance=" + lat + "," + lng + "," + radius + "&fields=type_sol&apikey=7c7295c3ffbfce70ec53daa132c3a2825e3aa8ca439f27b33e342d20" + "&x=type_sol&y.count.func=COUNT", {
 					success: function (data, status, request) {
 						console.log(data);
-						console.log(alert(data.serie));
+						var tableauFormate = data.map(function(obj){ 
+						  var rObj  = {};
+						  rObj[obj.count] = obj.count; 
+						  return rObj ;
+						});
+						console.log(tableauFormate);
+
+
+
+						var math = require('mathjs');
+						var result = math.sum(tableauFormate);
+						console.log(result);
 						// var result.sum = math.sum(data_test);
 						// console.log(result);
-					// data_test = [1,4,6,3,5,393,4,5];
-					// int result = math.sum(data_test);
-					// System.out.println(result);
-					// function total(a,b)
-					// {
-					// result=a+b;
-					// return result
-					// }
+						// data_test = [1,4,6,3,5,393,4,5];
+						// int result = math.sum(data_test);
+						// System.out.println(result);
+						// function total(a,b)
+						// {
+						// result=a+b;
+						// return result
+						// }
 					}
 				});
 			} else {
