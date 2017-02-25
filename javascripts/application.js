@@ -54,7 +54,7 @@ Cledesol = {
     estimateObservationCount: function (lat, lng, radius) {
 	var point = [lat, lng];
 	if (radius === undefined || radius === null) {
-	    radius = 50000;
+	    radius = Cledesol.radius;
 	}
 	$.ajax("https://plateforme.api-agro.fr/api/records/1.0/search/?dataset=parcelles-vigicultures-sols&geofilter.distance=" + lat + "," + lng + "," + radius + "&fields=type_sol&apikey=7c7295c3ffbfce70ec53daa132c3a2825e3aa8ca439f27b33e342d20", {
 		success: function (data, status, request) {
@@ -87,6 +87,16 @@ Cledesol = {
     },
 
     showDonutValidation: function (lat, lng, radius) {
+	var myDoughnutChart = new Chart("soil-observations", {
+	    type: 'doughnut',
+	    data: {
+		datasets: [{
+		    data: [45, 25, 20, 10]
+		}],
+		labels: ['Red', 'Blue', 'Purple', 'Yellow']
+	    }
+	});
+	
 	$('#soil-validation').modal();	
     }
 	
