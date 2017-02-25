@@ -8,7 +8,6 @@ if ($_POST || $debug) {
 	if ($debug) $raw_data = '{"id_utilisateur" : "123457","x" : "1,123456","y" : "1,123456","reponse" : "1","idsol" : "ABC123","nom_officiel" : "bla", "nom_referentiel" : "bla", "calcaire" : "bla", "pierrosite" : "bla", "texture" : "bla", "hydromorphie" : "bla"}';
 	else $raw_data = file_get_contents('php://input');
 	$data = json_decode($raw_data, true);
-	//$conn = new mysqli ("localhost", "cledesol", "clepass", "cledesol"); 
 	$conn = new mysqli ($server, $user, $pass, $db); 
 	if ($conn->connect_error) {
     		die("Connection failed: " . $conn->connect_error);
