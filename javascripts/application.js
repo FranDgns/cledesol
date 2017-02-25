@@ -97,7 +97,7 @@ Cledesol = {
 	    type: 'doughnut',
 	    data: {
 		datasets: [{
-		    data: tableauFormate
+		    data: []
 		}],
 		labels: ['Red', 'Blue', 'Purple', 'Yellow']
 	    }
