@@ -114,10 +114,11 @@ Cledesol = {// objet javascript : on definit des attributs ou des valeures (sous
 		json.forEach(function(element) {
 		    mymarker = L.marker({
 			lat: element.x,
-			lng: element.y
+			lng: element.y,
+			title: element.id_utilisateur
 		    });
 		    mymarker
-		    // .bindPopup(element.id_utilisateur + "<br>" + element.reponse + "<br>" + element.idsol + "<br>" + element.nom_officiel + "<br>" + element.nom_referentiel + "<br>" + element.calcaire + "<br>" + element.pierrosite + "<br>" + element.texture + "<br>" + element.hydromorphie)
+		     .bindPopup(element.id_utilisateur + "<br>" + element.reponse + "<br>" + element.idsol + "<br>" + element.nom_officiel + "<br>" + element.nom_referentiel + "<br>" + element.calcaire + "<br>" + element.pierrosite + "<br>" + element.texture + "<br>" + element.hydromorphie)
 			.addTo(Cledesol.map);
 		});
 	    }
