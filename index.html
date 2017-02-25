@@ -57,15 +57,18 @@
             <h4 class="modal-title">Correction d'observation</h4>
 	  </div>
 	  <div class="modal-body">
-            <form>
+            <form action="http://217.174.196.5/cleserver.php" method="POST" enctype="application/json">
 				<label for="user">Identifiant utilisateur: </label>
-				<input id="user" type="text" title="user" />
+				<input id="user" name="id_utilisateur" type="text" />
 				</br>
-				<label for="freeName">Nom officiel (type de sol): </label>
-				<input id="freeName" type="text" title="freeName" />
+				<input type="hidden" name="x" />
+				<input type="hidden" name="y" />
+				<input type="hidden" name="idsol" value="ABC123" />
+				<label for="nom_officiel">Nom officiel (type de sol): </label>
+				<input id="nom_officiel" name="nom_officiel" type="text" />
 				</br>
-				<label for="refName">Nom r&eacute;f&eacute;rentiel (type de sol): </label>
-				<input id="refName" type="text" title="refName" />
+				<label for="nom_referentiel">Nom r&eacute;f&eacute;rentiel (type de sol): </label>
+				<input id="nom_referentiel" name="nom_referentiel" type="text" />
 				</br>
 				<label for="calcaire">Calcaire: </label>
 				<select id="calcaire" name="calcaire" required >
@@ -75,7 +78,7 @@
 				</select>
 				</br>
 				<label for="pierre">Pierrosit&eacute;: </label>
-				<select id="pierre" name="pierre" required >
+				<select id="pierre" name="pierrosite" required >
 					<option disabled selected value>-- Choisissez une valeur --</option>
 					<option value="caillou">Caillouteux</option>
 					<option value="peu-caillou">Peu caillouteux</option>
