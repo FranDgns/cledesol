@@ -32,7 +32,9 @@ nav.navbar {
     tex-align: center;
     box-sizing: border-box;
     width: 100%;
-    .btn {
-	padding: 1.2em;
-    }
+}
+#place-actions #evaluate-button {
+    padding: 1.2em;
+    background: #c87137;
+    border-color: #502d16;
 }

@@ -65,6 +65,8 @@ Cledesol = {// objet javascript : on definit des attributs ou des valeures (sous
 	    console.log("Le service de géolocalisation n'est pas disponible sur votre ordinateur.");
 	}
 
+	Cledesol.drawAllObservations();
+	
 	$('#evaluate-button').on('click', Cledesol.showDonutValidation);
     },
 
@@ -79,6 +81,47 @@ Cledesol = {// objet javascript : on definit des attributs ou des valeures (sous
     drawObservationZone: function () {
 	var point = Cledesol.marker.getLatLng();
 	Cledesol.observationZone.setLatLng([point.lat, point.lng]).setRadius(Cledesol.radius);
+    },
+
+    pushFormData: function(rawdata)
+    {
+	console.log("helloooow");
+	$.ajax({
+	    type: 'POST',
+	    url: "http://217.174.196.5/cleserver.php",
+	    data: JSON.stringify(rawdata),
+	    dataType: "application/json",
+	    headers: {
+		"Access-Control-Allow-Headers": "X-Requested-With",
+		"X-Requested-With": "XMLHttpRequest"
+            },
+	    success: function (msg) {
+		if (msg) {
+		    console.log('push réussi' + describe(msg));
+		    Cledesol.drawAllObservations();
+		}
+		else {
+		    console.log('push échoué');}
+	    }
+	});
+    },
+
+    drawAllObservations: function () {
+	$.ajax("http://217.174.196.5/cledisplay.php", {
+	    success: function(data,status,request) {
+		var json = JSON.parse(data);
+		console.log(json);
+		json.forEach(function(element) {
+		    mymarker = L.marker({
+			lat: element.x,
+			lng: element.y
+		    });
+		    mymarker
+		    // .bindPopup(element.id_utilisateur + "<br>" + element.reponse + "<br>" + element.idsol + "<br>" + element.nom_officiel + "<br>" + element.nom_referentiel + "<br>" + element.calcaire + "<br>" + element.pierrosite + "<br>" + element.texture + "<br>" + element.hydromorphie)
+			.addTo(Cledesol.map);
+		});
+	    }
+	});
     },
     
     // Calcule le nombre d'observation dans un rayon donné

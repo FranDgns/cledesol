@@ -24,7 +24,9 @@ function pushFormData(rawdata)
           },
     success: function (msg) {
         if (msg) {
-            console.log('push réussi' + describe(msg));}
+            console.log('push réussi' + describe(msg));
+	    Cledesol.drawAllObservations();
+	}
         else {
             console.log('push échoué');}
 	 }
