@@ -24,6 +24,11 @@ Cledesol = {// objet javascript : on definit des attributs ou des valeures (sous
 	    })
 	    .addTo(Cledesol.map);
 
+	L.easyButton('glyphicon glyphicon-screenshot', function(btn, map){
+	    var point = Cledesol.marker.getLatLng();
+	    Cledesol.center(point.lat, point.lng);
+	}).addTo(Cledesol.map);
+	
 	Cledesol.observationZone = L.circle(geoloc, Cledesol.radius).addTo(Cledesol.map);
 
 	$('#soil-validation-fix').on('click', function () {
@@ -79,6 +84,8 @@ Cledesol = {// objet javascript : on definit des attributs ou des valeures (sous
 	});
     },
 
+    chart: null,
+    
     showDonutValidation: function (tableauCount, tableauLabel) {
 	// Calcule la pourcentage de type de sol par rapport aux resultats du rayon
 	// series1 = data
@@ -95,7 +102,12 @@ Cledesol = {// objet javascript : on definit des attributs ou des valeures (sous
 		});
 		console.log(tableauLabel);
 
-		var myDoughnutChart = new Chart("soil-observations", {
+		if (Cledesol.chart !== null) {
+		    Cledesol.chart.destroy();
+		}
+		    
+		
+		Cledesol.chart = new Chart("soil-observations", {
 		    type: 'doughnut',
 		    data: {
 			datasets: [{
