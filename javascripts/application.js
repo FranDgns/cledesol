@@ -16,7 +16,11 @@ Cledesol = {// objet javascript : on definit des attributs ou des valeures (sous
 	})
 	    .on("move", function (event) {
 		point = this.getLatLng();
-		Cledesol.observationZone.setLatLng([point.lat, point.lng]);
+		Cledesol.drawObservationZone();
+	    })
+	    .on("dragstart", function (event) {
+		Cledesol.radius = 0;
+		Cledesol.drawObservationZone();
 	    })
 	    .on("dragend", function (event) {
 		point = this.getLatLng();
@@ -67,20 +71,32 @@ Cledesol = {// objet javascript : on definit des attributs ou des valeures (sous
 	$("input[name='y']").val(lng);
     },
 
+    drawObservationZone: function () {
+	var point = Cledesol.marker.getLatLng();
+	Cledesol.observationZone.setLatLng([point.lat, point.lng]).setRadius(Cledesol.radius);
+    },
+    
     // Calcule le nombre d'observation dans un rayon donné
     estimateObservationCount: function (lat, lng, radius) {
 	var point = [lat, lng];
+	var increment = 5;
 	if (radius === undefined || radius === null) {
-	    radius = Cledesol.radius;
+	    radius = increment;
 	}
-	$.ajax("https://plateforme.api-agro.fr/api/records/1.0/search/?dataset=parcelles-vigicultures-sols&geofilter.distance=" + lat + "," + lng + "," + radius + "&fields=type_sol&apikey=7c7295c3ffbfce70ec53daa132c3a2825e3aa8ca439f27b33e342d20", {
+	Cledesol.radius = radius * 1000;
+	Cledesol.drawObservationZone();
+	$.ajax("https://plateforme.api-agro.fr/api/records/1.0/search/?dataset=parcelles-vigicultures-sols&geofilter.distance=" + lat + "," + lng + "," + Cledesol.radius + "&fields=type_sol&apikey=7c7295c3ffbfce70ec53daa132c3a2825e3aa8ca439f27b33e342d20", {
 	    success: function (data, status, request) {
+		button = $('#evaluate-button')
 		if (data.nhits > 0) {
-		    $('#evaluate-button').removeAttr("disabled")
-		    $('#evaluate-button').html("Évaluer (" + data.nhits + ")")
+		    button.removeAttr("disabled");
+		    button.attr('data-soil-radius', radius); 
+		    button.html("Évaluer (" + data.nhits + " dans un rayon de " + radius + "km)")
 		} else {
-		    $('#evaluate-button').attr("disabled", "disabled")
-		    $('#evaluate-button').html("Évaluer (aucune observation)");
+		    button.attr("disabled", "disabled");
+		    button.html("Aucune observation dans un rayon de " + radius + "km");
+		    if (radius < 50000)
+			Cledesol.estimateObservationCount(lat, lng, radius + increment);
 		}
 	    }
 	});
