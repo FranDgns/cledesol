@@ -24,8 +24,11 @@ body {
     position: absolute;
     bottom: 0;
     z-index: 1000;
-    padding: 1em;
+    padding: 1.2em;
     tex-align: center;
     box-sizing: border-box;
     width: 100%;
+    .btn {
+	padding: 1.2em;
+    }
 }

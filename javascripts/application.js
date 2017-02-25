@@ -9,7 +9,11 @@ Cledesol = {// objet javascript : on definit des attributs ou des valeures (sous
 	    lng: 2.33
 	};
 	
-	Cledesol.map = L.map('place');
+	Cledesol.map = L.map('place')
+	    .on('click', function (event) {
+		var point = event.latlng;
+		Cledesol.center(point.lat, point.lng);
+	    });
 
 	Cledesol.marker = L.marker(geoloc, {
 	    draggable: true  
@@ -30,12 +34,13 @@ Cledesol = {// objet javascript : on definit des attributs ou des valeures (sous
 
 	L.easyButton('glyphicon glyphicon-screenshot', function(btn, map){
 	    var point = Cledesol.marker.getLatLng();
-	    Cledesol.center(point.lat, point.lng);
+	    Cledesol.map.setView(point, 9);
 	}).addTo(Cledesol.map);
 	
 	Cledesol.observationZone = L.circle(geoloc, Cledesol.radius, {
 	    weight: 2
-	}).addTo(Cledesol.map);
+	})
+	    .addTo(Cledesol.map);
 
 	$('#soil-validation-fix').on('click', function () {
 	    $('#soil-validation').modal('hide');
@@ -137,7 +142,7 @@ Cledesol = {// objet javascript : on definit des attributs ou des valeures (sous
 			onClick: function (event, activeItems) {
 			    var item = activeItems[0];
 			    var legend = this.data.labels[item._index];
-			    if (confirm("Est-ce que vous confirmer que votre observation correspond à : " + legend + " ?")) {
+			    if (confirm("Est-ce que votre observation correspond bien à : " + legend + " ?")) {
 				$("#soil-validation").modal('hide');
 			    }
 			}
