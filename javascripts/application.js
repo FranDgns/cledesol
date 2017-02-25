@@ -1,4 +1,7 @@
 Cledesol = {
+    
+    radius: 50000,
+    
     // Initialise la carte, le marqueur, et le fond de carte
     init: function () {
 	var geoloc = {
@@ -11,12 +14,17 @@ Cledesol = {
 	Cledesol.marker = L.marker(geoloc, {
 	    draggable: true  
 	})
+	    .on("move", function (event) {
+		point = this.getLatLng();
+		Cledesol.observationZone.setLatLng([point.lat, point.lng]);
+	    })
 	    .on("dragend", function (event) {
 		point = this.getLatLng();
-		console.log(point);
 		Cledesol.estimateObservationCount(point.lat, point.lng);
 	    })
 	    .addTo(Cledesol.map);
+
+	Cledesol.observationZone = L.circle(geoloc, Cledesol.radius).addTo(Cledesol.map);
 	
 	L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 	    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -37,7 +45,7 @@ Cledesol = {
     // Centre la carte aux coordonnées données
     center: function(lat, lng) {
 	var point = [lat, lng];
-	Cledesol.map.setView(point, 16);
+	Cledesol.map.setView(point, 12);
 	Cledesol.marker.setLatLng(point);
 	Cledesol.estimateObservationCount(lat, lng);
     },
