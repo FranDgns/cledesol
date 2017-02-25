@@ -43,16 +43,38 @@ Cledesol = {
     // Calcule le nombre d'observation dans un rayon donné
     estimateObservationCount: function (lat, lng, radius) {
 	var point = [lat, lng];
-	if (radius === undefined || radius === null)
+	if (radius === undefined || radius === null) {
 	    radius = 50000;
+	}
 	$.ajax("https://plateforme.api-agro.fr/api/records/1.0/search/?dataset=parcelles-vigicultures-sols&geofilter.distance=" + lat + "," + lng + "," + radius + "&fields=type_sol&apikey=7c7295c3ffbfce70ec53daa132c3a2825e3aa8ca439f27b33e342d20", {
-	    success: function (data, status, request) {
-		if (data.nhits > 0) {
-		    console.log("Yes");
-		}
-	    }
+		success: function (data, status, request) {
+			if (data.nhits > 0) {
+				console.log("Yes");
+		        console.log(data);
+				// Calcule la pourcentage de type de sol par rapport aux resultats du rayon
+				// series1 = data
+				$.ajax("https://plateforme.api-agro.fr/api/records/1.0/analyze/?dataset=parcelles-vigicultures-sols&geofilter.distance=" + lat + "," + lng + "," + radius + "&fields=type_sol&apikey=7c7295c3ffbfce70ec53daa132c3a2825e3aa8ca439f27b33e342d20" + "&x=type_sol&y.serie.func=COUNT", {
+					success: function (data, status, request) {
+						console.log(data);	
+						// var result.sum = math.sum(data_test);
+						// console.log(result);
+					// data_test = [1,4,6,3,5,393,4,5];
+					// int result = math.sum(data_test);
+					// System.out.println(result);
+					// function total(a,b)
+					// {
+					// result=a+b;
+					// return result
+					// }
+					}
+				});
+			}
+		}	
+		// console.log(data);
 	});
     }
+	
+
 }
 
 $(document).ready(Cledesol.init);
