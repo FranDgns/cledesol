@@ -25,6 +25,16 @@ Cledesol = {
 	    .addTo(Cledesol.map);
 
 	Cledesol.observationZone = L.circle(geoloc, Cledesol.radius).addTo(Cledesol.map);
+
+	$('#soil-validation-fix').on('click', function () {
+	    $('#soil-validation').modal('hide');
+	    $('#soil-fix').modal()
+	});
+	
+	$('#soil-validation-accept').on('click', function () {
+	    // Sync validation
+	    $('#soil-validation').modal('close');
+	});
 	
 	L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 	    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -45,7 +55,7 @@ Cledesol = {
     // Centre la carte aux coordonnées données
     center: function(lat, lng) {
 	var point = [lat, lng];
-	Cledesol.map.setView(point, 12);
+	Cledesol.map.setView(point, 9);
 	Cledesol.marker.setLatLng(point);
 	Cledesol.estimateObservationCount(lat, lng);
     },

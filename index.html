@@ -26,16 +26,36 @@
             <p>One fine body&hellip;</p>
 	  </div>
 	  <div class="modal-footer">
-            <button type="button" class="btn btn-danger">
+            <button type="button" class="btn btn-danger" id="soil-validation-fix">
 	      <span class="glyphicon glyphicon-remove"></span> Pas bon&nbsp;!
 	    </button>
-            <button type="button" class="btn btn-success">
+            <button type="button" class="btn btn-success" id="soil-validation-accept">
 	      <span class="glyphicon glyphicon-ok"></span> C'est ça&nbsp;!
 	    </button>
 	  </div>
 	</div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
+
+
+    <div id="soil-fix" class="modal fade" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+	<div class="modal-content">
+	  <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Correction d'observation</h4>
+	  </div>
+	  <div class="modal-body">
+            <p>Form</p>
+	  </div>
+	  <div class="modal-footer">
+            <button type="button" class="btn btn-primary">Enregistrer</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+	  </div>
+	</div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
     <div id="main">
       <div id="place-actions">
         <button type="button" class="btn btn-primary btn-block" id="evaluate-button">Évaluer</button>
