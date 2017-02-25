@@ -1,4 +1,4 @@
-Cledesol = {
+Cledesol = {// objet javascript : on definit des attributs ou des valeures (sous-ensemble) jquery = biblioteque generique pour manipuler du java dans des navigateurs differents
     
     radius: 50000,
     
@@ -82,6 +82,7 @@ Cledesol = {
 						  return rObj ;
 						});
 						console.log(tableauFormate);
+						Cledesol.showDonutValidation(tableauFormate); // appeller des choses definies apres
 					}
 				});
 			} else {
@@ -92,14 +93,14 @@ Cledesol = {
 	});
     },
 
-    showDonutValidation: function (lat, lng, radius) {
+    showDonutValidation: function (tableauFormate) {
 	var myDoughnutChart = new Chart("soil-observations", {
 	    type: 'doughnut',
 	    data: {
 		datasets: [{
 		    data: tableauFormate
 		}],
-		labels: ['Red', 'Blue', 'Purple', 'Yellow']
+		backgroundColor: ['Red', 'Blue', 'Purple', 'Yellow']
 	    }
 	});
 	
