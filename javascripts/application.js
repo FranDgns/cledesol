@@ -65,7 +65,8 @@ Cledesol = {
 				// series1 = data
 				$.ajax("https://plateforme.api-agro.fr/api/records/1.0/analyze/?dataset=parcelles-vigicultures-sols&geofilter.distance=" + lat + "," + lng + "," + radius + "&fields=type_sol&apikey=7c7295c3ffbfce70ec53daa132c3a2825e3aa8ca439f27b33e342d20" + "&x=type_sol&y.serie.func=COUNT", {
 					success: function (data, status, request) {
-						console.log(data);	
+						console.log(data);
+						console.log(alert(data.serie));
 						// var result.sum = math.sum(data_test);
 						// console.log(result);
 					// data_test = [1,4,6,3,5,393,4,5];
