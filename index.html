@@ -13,6 +13,17 @@
     <script src="javascripts/Chart.min.js"></script>  
     <script src="javascripts/application.js"></script>
   </head>
+  <style>
+	input[type=text], select {
+		padding: 2px 20px;
+		width: 100%;
+		margin: 8px 0;
+		display: inline-block;
+		box-sizing: border-box;
+		border: 2px solid #4268a5;
+		border-radius: 4px;
+	}
+  </style>
   <body>
     <div id="soil-validation" class="modal fade" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
@@ -46,7 +57,50 @@
             <h4 class="modal-title">Correction d'observation</h4>
 	  </div>
 	  <div class="modal-body">
-            <p>Form</p>
+            <form>
+				<label for="user">Identifiant utilisateur: </label>
+				<input id="user" type="text" title="user" />
+				</br>
+				<label for="freeName">Nom officiel (type de sol): </label>
+				<input id="freeName" type="text" title="freeName" />
+				</br>
+				<label for="refName">Nom r&eacute;f&eacute;rentiel (type de sol): </label>
+				<input id="refName" type="text" title="refName" />
+				</br>
+				<label for="calcaire">Calcaire: </label>
+				<select id="calcaire" name="calcaire" required >
+					<option disabled selected value>-- Choisissez une valeur --</option>
+					<option value="calcaire">Calcaire</option>
+					<option value="non-calcaire">Non calcaire</option>
+				</select>
+				</br>
+				<label for="pierre">Pierrosit&eacute;: </label>
+				<select id="pierre" name="pierre" required >
+					<option disabled selected value>-- Choisissez une valeur --</option>
+					<option value="caillou">Caillouteux</option>
+					<option value="peu-caillou">Peu caillouteux</option>
+					<option value="non-caillou">Non caillouteux</option>
+				</select>
+				</br>
+				<label for="texture">Texture: </label>
+				<select id="texture" name="texture" required >
+					<option disabled selected value>-- Choisissez une valeur --</option>
+					<option value="sable">Sable</option>
+					<option value="argile">Argile</option>
+					<option value="limon-argile">Limon argileux</option>
+					<option value="sable-limon">Sable limoneux</option>
+					<option value="limon">Limon</option>
+					<option value="limon-sable">Limon sableux</option>
+				</select>
+				</br>
+				<label for="hydro">Hydromorphie: </label>
+				<select id="hydro" name="hydromorphie" required >
+					<option disabled selected value>-- Choisissez une valeur --</option>
+					<option value="non-hydromorphe">Non hydromorphe</option>
+					<option value="hydromorphe">Hydromorphe</option>
+				</select>
+				</br>
+			</form>
 	  </div>
 	  <div class="modal-footer">
             <button type="button" class="btn btn-primary">Enregistrer</button>
