@@ -30,6 +30,8 @@ Cledesol = {
 	} else {
 	    console.log("Le service de géolocalisation n'est pas disponible sur votre ordinateur.");
 	}
+
+	$('#evaluate-button').on('click', Cledesol.showDonutValidation);
     },
 
     // Centre la carte aux coordonnées données
@@ -48,10 +50,16 @@ Cledesol = {
 	$.ajax("https://plateforme.api-agro.fr/api/records/1.0/search/?dataset=parcelles-vigicultures-sols&geofilter.distance=" + lat + "," + lng + "," + radius + "&fields=type_sol&apikey=7c7295c3ffbfce70ec53daa132c3a2825e3aa8ca439f27b33e342d20", {
 	    success: function (data, status, request) {
 		if (data.nhits > 0) {
-		    console.log("Yes");
+		    // Cledesol.showDonutValidation();
+		} else {
+		    alert("Pas d'observations");
 		}
 	    }
 	});
+    },
+
+    showDonutValidation: function (lat, lng, radius) {
+	$('#soil-validation').modal();	
     }
 }
 
