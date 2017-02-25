@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Cle de Sol</title>
+    <title>Clé de Sol</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <link rel="stylesheet" href="stylesheets/leaflet.css" />
@@ -16,15 +16,6 @@
     <script src="javascripts/Chart.min.js"></script>  
     <script src="javascripts/application.js"></script>
     <style>
-      input[type=text], select {
-        padding: 2px 20px;
-        width: 100%;
-        margin: 8px 0;
-        display: inline-block;
-        box-sizing: border-box;
-        border: 2px solid #4268a5;
-        border-radius: 4px;
-      }
     </style>
     <script src="javascripts/form2json.js"></script>
   </head>
@@ -66,7 +57,7 @@
 	    <canvas id="soil-observations" width="200" height="200"></canvas>
 	  </div>
 	  <div class="modal-footer">
-	    <div class="pull-left"><a href="https://wiki.aurea.eu/index.php/Introduction_-_L%E2%80%99approche_globale_de_l%E2%80%99analyse_de_terre" target="_blank" class="btn btn-default">Plus d'information sur les types de sol</a></div>
+	    <!-- <div class="pull-left"><a href="https://wiki.aurea.eu/index.php/Introduction_-_L%E2%80%99approche_globale_de_l%E2%80%99analyse_de_terre" target="_blank" class="btn btn-default">Plus d'information sur les types de sol</a></div> -->
             <button type="button" class="btn btn-danger" id="soil-validation-fix">
 	      <span class="glyphicon glyphicon-remove"></span> Je ne trouve pas mon type de sol
 	    </button>
@@ -79,78 +70,72 @@
     <div id="soil-fix" class="modal fade" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
 	<div class="modal-content">
-	  <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Correction d'observation</h4>
-	  </div>
-	  <div class="modal-body">
-            <form id="newInput" method="POST" >
-				<label for="user">Identifiant utilisateur: </label>
-				<input id="user" name="id_utilisateur" type="text" required />
-				</br>
-				<input type="hidden" name="x" />
-				<input type="hidden" name="y" />
-				<input type="hidden" name="idsol" value="ABC123" />
-				<label for="nom_officiel">Nom officiel (type de sol): </label>
-				<input id="nom_officiel" name="nom_officiel" type="text" />
-				</br>
-				<label for="nom_referentiel">Nom r&eacute;f&eacute;rentiel (type de sol): </label>
-				<input id="nom_referentiel" name="nom_referentiel" type="text" />
-				</br>
-				<label for="calcaire">Calcaire: </label>
-				<select id="calcaire" name="calcaire" required >
-					<option disabled selected value>-- Choisissez une valeur --</option>
-					<option value="calcaire">Calcaire</option>
-					<option value="non-calcaire">Non calcaire</option>
-				</select>
-				<br/>
-				<label for="pierre">Pierrosit&eacute;: </label>
-				<select id="pierre" name="pierrosite" required >
-					<option disabled selected value>-- Choisissez une valeur --</option>
-					<option value="caillou">Caillouteux</option>
-					<option value="peu-caillou">Peu caillouteux</option>
-					<option value="non-caillou">Non caillouteux</option>
-				</select>
-				<br/>
-				<label for="texture">Texture: </label>
-				<select id="texture" name="texture" required >
-					<option disabled selected value>-- Choisissez une valeur --</option>
-					<option value="sable">Sable</option>
-					<option value="argile">Argile</option>
-					<option value="limon-argile">Limon argileux</option>
-					<option value="sable-limon">Sable limoneux</option>
-					<option value="limon">Limon</option>
-					<option value="limon-sable">Limon sableux</option>
-				</select>
-				<br/>
-				<label for="hydro">Hydromorphie: </label>
-				<select id="hydro" name="hydromorphie" required >
-					<option disabled selected value>-- Choisissez une valeur --</option>
-					<option value="non-hydromorphe">Non hydromorphe</option>
-					<option value="hydromorphe">Hydromorphe</option>
-				</select>
-				<br/>
-				<input type="button" class="btn btn-primary" value="Enregistrer" onclick="callExtJs()" />
-				<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-			</form>
-		<script>
-			function callExtJs() {
-				var array = $("#newInput").serializeArray();
-                var json = {};
-				
-                jQuery.each(array, function() {
-                    json[this.name] = this.value || '';
-                });
-				console.log(json);
-                Cledesol.pushFormData(json);
-				$("#soil-fix").modal("hide");
-			}
-		</script>
-	  </div>
-	  <!--<div class="modal-footer">
-            <button type="button" class="btn btn-primary">Enregistrer</button>
-            <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-	  </div>-->
+	  <form id="newInput" method="POST" action="#" onsubmit="Cledesol.serializeAndPush()">
+	    <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title">Nouvelle observation</h4>
+	    </div>
+	    <div class="modal-body">
+	      <!--
+		  <label for="user">Identifiant utilisateur&nbsp;:</label>
+		  <input id="user" name="id_utilisateur" type="text" required />
+		  <br/>
+		  -->
+	      <input type="hidden" name="id_utilisateur" type="text" value="Martin DUPONT" required />
+	      <input type="hidden" name="x" />
+	      <input type="hidden" name="y" />
+	      <input type="hidden" name="idsol" value="ABC123" />
+	      <div class="form-group">
+		<label for="nom_officiel">Nom officiel (type de sol)&nbsp;:</label>
+		<input id="nom_officiel" name="nom_officiel" type="text" class="form-control"/>
+	      </div>
+	      <div class="form-group">
+		<label for="nom_referentiel">Nom r&eacute;f&eacute;rentiel (type de sol)&nbsp;:</label>
+		<input id="nom_referentiel" name="nom_referentiel" type="text" class="form-control" />
+	      </div>
+	      <div class="form-group">
+		<label for="calcaire">Calcaire&nbsp;:</label>
+		<select id="calcaire" name="calcaire" required  class="form-control">
+		  <option disabled selected value>-- Choisissez une valeur --</option>
+		  <option value="calcaire">Calcaire</option>
+		  <option value="non-calcaire">Non calcaire</option>
+		</select>
+	      </div>
+	      <div class="form-group">
+		<label for="pierre">Pierrosit&eacute;&nbsp;:</label>
+		<select id="pierre" name="pierrosite" required  class="form-control">
+		  <option disabled selected value>-- Choisissez une valeur --</option>
+		  <option value="caillou">Caillouteux</option>
+		  <option value="peu-caillou">Peu caillouteux</option>
+		  <option value="non-caillou">Non caillouteux</option>
+		</select>
+	      </div>
+	      <div class="form-group">
+		<label for="texture">Texture&nbsp;:</label>
+		<select id="texture" name="texture" required class="form-control" >
+		  <option disabled selected value>-- Choisissez une valeur --</option>
+		  <option value="sable">Sable</option>
+		  <option value="argile">Argile</option>
+		  <option value="limon-argile">Limon argileux</option>
+		  <option value="sable-limon">Sable limoneux</option>
+		  <option value="limon">Limon</option>
+		  <option value="limon-sable">Limon sableux</option>
+		</select>
+	      </div>
+	      <div class="form-group">
+		<label for="hydro">Hydromorphie&nbsp;:</label>
+		<select id="hydro" name="hydromorphie" required class="form-control" >
+		  <option disabled selected value>-- Choisissez une valeur --</option>
+		  <option value="non-hydromorphe">Non hydromorphe</option>
+		  <option value="hydromorphe">Hydromorphe</option>
+		</select>
+	      </div>
+	    </div>
+	    <div class="modal-footer">
+	      <button class="btn btn-primary" type="submit">Enregistrer</button>
+	      <button class="btn btn-default" data-dismiss="modal">Annuler</button>
+	    </div>
+	  </form>
 	</div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->

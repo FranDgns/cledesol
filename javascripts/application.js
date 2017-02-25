@@ -83,6 +83,18 @@ Cledesol = {// objet javascript : on definit des attributs ou des valeures (sous
 	Cledesol.observationZone.setLatLng([point.lat, point.lng]).setRadius(Cledesol.radius);
     },
 
+    serializeAndPush: function () {
+	console.log('fff');
+	var array = $("#newInput").serializeArray();
+	var json = {};
+	
+	jQuery.each(array, function() {
+	    json[this.name] = this.value || '';
+	});
+	console.log(json);
+	Cledesol.pushFormData(json);
+    },
+
     pushFormData: function(rawdata)
     {
 	console.log("helloooow");
@@ -99,6 +111,7 @@ Cledesol = {// objet javascript : on definit des attributs ou des valeures (sous
 		if (msg) {
 		    console.log('push réussi' + describe(msg));
 		    Cledesol.drawAllObservations();
+		    $("#soil-fix").modal("hide");
 		}
 		else {
 		    console.log('push échoué');}
