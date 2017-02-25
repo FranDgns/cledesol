@@ -33,7 +33,9 @@ Cledesol = {// objet javascript : on definit des attributs ou des valeures (sous
 	    Cledesol.center(point.lat, point.lng);
 	}).addTo(Cledesol.map);
 	
-	Cledesol.observationZone = L.circle(geoloc, Cledesol.radius).addTo(Cledesol.map);
+	Cledesol.observationZone = L.circle(geoloc, Cledesol.radius, {
+	    weight: 2
+	}).addTo(Cledesol.map);
 
 	$('#soil-validation-fix').on('click', function () {
 	    $('#soil-validation').modal('hide');
@@ -67,8 +69,6 @@ Cledesol = {// objet javascript : on definit des attributs ou des valeures (sous
 	Cledesol.map.setView(point, 9);
 	Cledesol.marker.setLatLng(point);
 	Cledesol.estimateObservationCount(lat, lng);
-	$("input[name='x']").val(lat);
-	$("input[name='y']").val(lng);
     },
 
     drawObservationZone: function () {
@@ -80,14 +80,18 @@ Cledesol = {// objet javascript : on definit des attributs ou des valeures (sous
     estimateObservationCount: function (lat, lng, radius) {
 	var point = [lat, lng];
 	var increment = 5;
+	var button = $('#evaluate-button');
+	$("input[name='x']").val(lat);
+	$("input[name='y']").val(lng);
 	if (radius === undefined || radius === null) {
 	    radius = increment;
+	    button.attr("disabled", "disabled");
+	    button.html("En recherche d'observations...");
 	}
 	Cledesol.radius = radius * 1000;
 	Cledesol.drawObservationZone();
-	$.ajax("https://plateforme.api-agro.fr/api/records/1.0/search/?dataset=parcelles-vigicultures-sols&geofilter.distance=" + lat + "," + lng + "," + Cledesol.radius + "&fields=type_sol&apikey=7c7295c3ffbfce70ec53daa132c3a2825e3aa8ca439f27b33e342d20", {
+	$.ajax("https://plateforme.api-agro.fr/api/records/1.0/search/?dataset=parcelles-vigicultures-sols&q=not+%23null(type_sol)&geofilter.distance=" + lat + "," + lng + "," + Cledesol.radius + "&fields=type_sol&apikey=7c7295c3ffbfce70ec53daa132c3a2825e3aa8ca439f27b33e342d20", {
 	    success: function (data, status, request) {
-		button = $('#evaluate-button')
 		if (data.nhits > 0) {
 		    button.removeAttr("disabled");
 		    button.attr('data-soil-radius', radius); 
@@ -95,12 +99,14 @@ Cledesol = {// objet javascript : on definit des attributs ou des valeures (sous
 		} else {
 		    button.attr("disabled", "disabled");
 		    button.html("Aucune observation dans un rayon de " + radius + "km");
-		    if (radius < 50000)
+		    if (radius < 50)
 			Cledesol.estimateObservationCount(lat, lng, radius + increment);
 		}
 	    }
 	});
     },
+
+    
 
     chart: null,
     
@@ -108,7 +114,7 @@ Cledesol = {// objet javascript : on definit des attributs ou des valeures (sous
 	// Calcule la pourcentage de type de sol par rapport aux resultats du rayon
 	// series1 = data
 	point = Cledesol.marker.getLatLng();
-	$.ajax("https://plateforme.api-agro.fr/api/records/1.0/analyze/?dataset=parcelles-vigicultures-sols&geofilter.distance=" + point.lat + "," + point.lng + "," + Cledesol.radius + "&fields=type_sol&apikey=7c7295c3ffbfce70ec53daa132c3a2825e3aa8ca439f27b33e342d20" + "&x=nom_sol&y.count.func=COUNT", { // remplacer type_sol avec "Nom officiel"
+	$.ajax("https://plateforme.api-agro.fr/api/records/1.0/analyze/?dataset=parcelles-vigicultures-sols&q=not+%23null(type_sol)&geofilter.distance=" + point.lat + "," + point.lng + "," + Cledesol.radius + "&fields=type_sol&apikey=7c7295c3ffbfce70ec53daa132c3a2825e3aa8ca439f27b33e342d20" + "&x=nom_sol&y.count.func=COUNT", { // remplacer type_sol avec "Nom officiel"
 	    success: function (data, status, request) {
 		console.log(data);
 		var tableauCount = data.map(function(obj){ 
@@ -127,6 +133,15 @@ Cledesol = {// objet javascript : on definit des attributs ou des valeures (sous
 		
 		Cledesol.chart = new Chart("soil-observations", {
 		    type: 'doughnut',
+		    options: {
+			onClick: function (event, activeItems) {
+			    var item = activeItems[0];
+			    var legend = this.data.labels[item._index];
+			    if (confirm("Est-ce que vous confirmer que votre observation correspond à : " + legend + " ?")) {
+				$("#soil-validation").modal('hide');
+			    }
+			}
+		    },
 		    data: {
 			datasets: [{
 			    data: tableauCount,

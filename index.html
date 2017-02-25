@@ -14,35 +14,33 @@
     <script src="javascripts/bootstrap.min.js"></script>  
     <script src="javascripts/Chart.min.js"></script>  
     <script src="javascripts/application.js"></script>
+    <style>
+      input[type=text], select {
+        padding: 2px 20px;
+        width: 100%;
+        margin: 8px 0;
+        display: inline-block;
+        box-sizing: border-box;
+        border: 2px solid #4268a5;
+        border-radius: 4px;
+      }
+    </style>
   </head>
-  <style>
-	input[type=text], select {
-		padding: 2px 20px;
-		width: 100%;
-		margin: 8px 0;
-		display: inline-block;
-		box-sizing: border-box;
-		border: 2px solid #4268a5;
-		border-radius: 4px;
-	}
-  </style>
   <body>
     <div id="soil-validation" class="modal fade" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
 	<div class="modal-content">
 	  <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Soil matcher</h4>
+            <h4 class="modal-title">Identifiez votre type de sol</h4>
 	  </div>
 	  <div class="modal-body">
 	    <canvas id="soil-observations" width="200" height="200"></canvas>
 	  </div>
 	  <div class="modal-footer">
+	    <div class="pull-left"><a href="https://wiki.aurea.eu/index.php/Introduction_-_L%E2%80%99approche_globale_de_l%E2%80%99analyse_de_terre" target="_blank" class="btn btn-default">Plus d'information sur les types de sol</a></div>
             <button type="button" class="btn btn-danger" id="soil-validation-fix">
-	      <span class="glyphicon glyphicon-remove"></span> Pas bon&nbsp;!
-	    </button>
-            <button type="button" class="btn btn-success" id="soil-validation-accept">
-	      <span class="glyphicon glyphicon-ok"></span> C'est ça&nbsp;!
+	      <span class="glyphicon glyphicon-remove"></span> Je ne trouve pas mon type de sol
 	    </button>
 	  </div>
 	</div><!-- /.modal-content -->
