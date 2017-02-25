@@ -82,22 +82,6 @@ Cledesol = {
 						  return rObj ;
 						});
 						console.log(tableauFormate);
-
-
-
-						var math = require('mathjs');
-						var result = math.sum(tableauFormate);
-						console.log(result);
-						// var result.sum = math.sum(data_test);
-						// console.log(result);
-						// data_test = [1,4,6,3,5,393,4,5];
-						// int result = math.sum(data_test);
-						// System.out.println(result);
-						// function total(a,b)
-						// {
-						// result=a+b;
-						// return result
-						// }
 					}
 				});
 			} else {
@@ -113,7 +97,7 @@ Cledesol = {
 	    type: 'doughnut',
 	    data: {
 		datasets: [{
-		    data: [45, 25, 20, 10]
+		    data: tableauFormate
 		}],
 		labels: ['Red', 'Blue', 'Purple', 'Yellow']
 	    }
