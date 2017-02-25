@@ -59,7 +59,7 @@
             <h4 class="modal-title">Correction d'observation</h4>
 	  </div>
 	  <div class="modal-body">
-            <form id="newInput" method="POST" enctype="application/json">
+            <form id="newInput" method="POST" >
 				<label for="user">Identifiant utilisateur: </label>
 				<input id="user" name="id_utilisateur" type="text" required />
 				</br>
@@ -105,12 +105,19 @@
 					<option value="hydromorphe">Hydromorphe</option>
 				</select>
 				<br/>
-				<input type="submit" class="btn btn-primary" value="Enregistrer" onclick="callExtJs()" />
+				<input type="button" class="btn btn-primary" value="Enregistrer" onclick="callExtJs()" />
 				<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
 			</form>
 		<script>
 			function callExtJs() {
-				pushFormData($("#newInput"));
+				var array = $("#newInput").serializeArray();
+                var json = {};
+				
+                jQuery.each(array, function() {
+                    json[this.name] = this.value || '';
+                });
+				console.log(json);
+                pushFormData(json);
 			}
 		</script>
 	  </div>
