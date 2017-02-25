@@ -59,7 +59,7 @@ Cledesol = {
 	$.ajax("https://plateforme.api-agro.fr/api/records/1.0/search/?dataset=parcelles-vigicultures-sols&geofilter.distance=" + lat + "," + lng + "," + radius + "&fields=type_sol&apikey=7c7295c3ffbfce70ec53daa132c3a2825e3aa8ca439f27b33e342d20", {
 		success: function (data, status, request) {
 			if (data.nhits > 0) {
-				console.log("Yes");
+			    $('#evaluate-button').html("Évaluer (" + data.nhits + ")")
 		        console.log(data);
 				// Calcule la pourcentage de type de sol par rapport aux resultats du rayon
 				// series1 = data
@@ -78,6 +78,8 @@ Cledesol = {
 					// }
 					}
 				});
+			} else {
+			    $('#evaluate-button').html("Évaluer (aucune observation)");
 			}
 		}	
 		// console.log(data);
