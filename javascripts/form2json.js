@@ -27,6 +27,7 @@ function pushFormData(rawdata)
             console.log('push réussi' + describe(msg));}
         else {
             console.log('push échoué');}
-     }
+     $("$soil-fix").modal("hide");
+	 }
     });
 }
