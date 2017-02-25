@@ -63,6 +63,8 @@ Cledesol = {// objet javascript : on definit des attributs ou des valeures (sous
 	Cledesol.map.setView(point, 9);
 	Cledesol.marker.setLatLng(point);
 	Cledesol.estimateObservationCount(lat, lng);
+	$("input[name='x']").val(lat);
+	$("input[name='y']").val(lng);
     },
 
     // Calcule le nombre d'observation dans un rayon donné
