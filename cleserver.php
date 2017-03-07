@@ -10,11 +10,11 @@ if ($_POST || $debug) {
 	$data = json_decode($raw_data, true);
 	$conn = new mysqli ($server, $user, $pass, $db); 
 	if ($conn->connect_error) {
-    		die("Connection failed: " . $conn->connect_error);
+        die("Connection failed: " . $conn->connect_error);
 	}
 	$id_utilisateur = $data["id_utilisateur"];
 	$x = $data["x"];
-	$y=$data["y"];
+	$y = $data["y"];
 	$reponse = $data["reponse"];
 	$idsol = $data["idsol"];
 	$nom_officiel = $data["nom_officiel"];
@@ -26,18 +26,18 @@ if ($_POST || $debug) {
 
 	$request = "INSERT INTO reponses (id_utilisateur, x, y, reponse, idsol, nom_officiel,nom_referentiel,calcaire,pierrosite,texture,hydromorphie) VALUES ('$id_utilisateur', '$x', '$y', '$reponse', '$idsol', '$nom_officiel', '$nom_referentiel','$calcaire','$pierrosite','$texture','$hydromorphie')";
 	if ($conn->query($request)) {
-	if ($debug)    echo "New record created successfully|";
+        if ($debug)    echo "New record created successfully|";
 	} else {
-	if($debug)    echo "Error: " . $sql . "|" . $conn->error;
+        if($debug)    echo "Error: " . $sql . "|" . $conn->error;
 	}
 	if ($debug)$conn->close();
-	$result = file_get_contents('https://plateforme.api-agro.fr/api/push/1.0/cledesol-retour-utilisateur/realtime/push/?pushkey=6c67c19472adab2ede5d276c5705ed8c8e5f07e26e6ae33843736438&apikey=93b806ee3e042101dfa629e69b79fe0ce7a4d1351b8e322b942cae4c', null, stream_context_create(array(
-	'http' => array(
-	'method' => 'POST',
-	'header' => 'Content-Type: application/json' . "\r\n"
-	. 'Content-Length: ' . strlen($raw_data) . "\r\n",
-	'content' => $raw_data,
-	),
+	$result = file_get_contents('https://plateforme.api-agro.fr/api/push/1.0/cledesol-retour-utilisateur/realtime/push/?pushkey=' . $api_pushkey . '&apikey=' . $api_key, null, stream_context_create(array(
+        'http' => array(
+            'method' => 'POST',
+            'header' => 'Content-Type: application/json' . "\r\n"
+            . 'Content-Length: ' . strlen($raw_data) . "\r\n",
+            'content' => $raw_data,
+        ),
 	)));
 }
 ?>

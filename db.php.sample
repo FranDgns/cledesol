@@ -3,4 +3,6 @@ $server="SERVER_NAME or SERVER_IP";
 $db="DB_NAME";
 $user="DB_USER_NAME";
 $pass="DB_USER_PASWORD";
+$api_pushkey="API_AGRO_PUSHKEY";
+$api_key="API_AGRO_KEY";
 ?>
