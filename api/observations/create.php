@@ -1,5 +1,5 @@
 <?php
-include ("db.php");
+include ("../../config.php");
 header ("Access-Control-Allow-Origin: *\n");
 header ("Access-Control-Allow-Headers: X-Requested-With, Content-Type\n");
 $debug = 0;

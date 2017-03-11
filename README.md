@@ -1,3 +1,15 @@
 # Clé de sol
 
-Ouvrir le fichier `index.html` dans un navigateur.
+## Configuration
+
+Copier le fichier `config.php.sample` en `config.php` et mettez les informations de connexion ou autre.
+
+
+## Lancement
+
+En local :
+```
+php -S 0.0.0.0:8000
+```
+
+Ouvrir le fichier `http://localhost:8000` dans un navigateur.
