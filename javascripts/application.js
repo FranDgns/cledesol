@@ -44,12 +44,19 @@ Cledesol = {// objet javascript : on definit des attributs ou des valeures (sous
 
     $('#soil-validation-fix').on('click', function () {
       $('#soil-validation').modal('hide');
-      $('#soil-fix').modal()
+      $('#soil-fix').modal();
     });
     
     $('#soil-validation-accept').on('click', function () {
       // Sync validation
       $('#soil-validation').modal('close');
+    });
+
+    $('#new-observation').on('submit', function (event) {
+      event.preventDefault();
+      $('#soil-fix').modal('hide');
+      Cledesol.serializeAndPush.call(this);
+      return false;
     });
     
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
@@ -83,25 +90,20 @@ Cledesol = {// objet javascript : on definit des attributs ou des valeures (sous
     Cledesol.observationZone.setLatLng([point.lat, point.lng]).setRadius(Cledesol.radius);
   },
 
-  serializeAndPush: function () {
-    console.log('fff');
-    var array = $("#newInput").serializeArray();
-    var json = {};
+  serializeAndPush: function (url) {
+    var url = $(this).attr('action')
+    var array = $(this).serializeArray();
+    var observation = {};
     
     jQuery.each(array, function() {
-      json[this.name] = this.value || '';
+      observation[this.name] = this.value || '';
     });
-    console.log(json);
-    Cledesol.pushFormData(json);
-  },
-
-  pushFormData: function(rawdata)
-  {
-    console.log("helloooow");
+    
+    console.log(observation);
     $.ajax({
       type: 'POST',
-      url: '/api/observations/create.php',
-      data: JSON.stringify(rawdata),
+      url: url,
+      data: JSON.stringify(observation),
       dataType: 'json',
       headers: {
         "Access-Control-Allow-Headers": "X-Requested-With",
@@ -109,12 +111,12 @@ Cledesol = {// objet javascript : on definit des attributs ou des valeures (sous
       },
       success: function (msg) {
         if (msg) {
-          console.log('push réussi' + describe(msg));
+          console.log('Push réussi' + describe(msg));
           Cledesol.drawAllObservations();
           $("#soil-fix").modal("hide");
         }
         else {
-          console.log('push échoué');}
+          console.log('Push échoué');}
       }
     });
   },
@@ -124,7 +126,7 @@ Cledesol = {// objet javascript : on definit des attributs ou des valeures (sous
       success: function(data,status,request) {
         var json = JSON.parse(data);
         console.log(json);
-        json.forEach(function(element) {
+        json.records.forEach(function(element) {
           mymarker = L.circleMarker({
             lat: element.x,
             lng: element.y
@@ -146,7 +148,7 @@ Cledesol = {// objet javascript : on definit des attributs ou des valeures (sous
   // Calcule le nombre d'observation dans un rayon donné
   estimateObservationCount: function (lat, lng, radius) {
     var point = [lat, lng];
-    var increment = 5;
+    var increment = 25;
     var button = $('#evaluate-button');
     $("input[name='x']").val(lat);
     $("input[name='y']").val(lng);

@@ -1,12 +1,15 @@
 <?php
-include ("../../config.php");
+include ('../../config.php');
 header ("Access-Control-Allow-Origin: *\n");
 header ("Access-Control-Allow-Headers: X-Requested-With, Content-Type\n");
 $debug = 0;
 
 if ($_POST || $debug) {
-	if ($debug) $raw_data = '{"id_utilisateur" : "123457","x" : "1,123456","y" : "1,123456","reponse" : "1","idsol" : "ABC123","nom_officiel" : "bla", "nom_referentiel" : "bla", "calcaire" : "bla", "pierrosite" : "bla", "texture" : "bla", "hydromorphie" : "bla"}';
-	else $raw_data = file_get_contents('php://input');
+	if ($debug)
+        $raw_data = '{"id_utilisateur" : "123457","x" : "1,123456","y" : "1,123456","reponse" : "1","idsol" : "ABC123","nom_officiel" : "bla", "nom_referentiel" : "bla", "calcaire" : "bla", "pierrosite" : "bla", "texture" : "bla", "hydromorphie" : "bla"}';
+	else
+        $raw_data = file_get_contents('php://input');
+    /*
 	$data = json_decode($raw_data, true);
 	$conn = new mysqli ($server, $user, $pass, $db); 
 	if ($conn->connect_error) {
@@ -30,14 +33,19 @@ if ($_POST || $debug) {
 	} else {
         if($debug)    echo "Error: " . $sql . "|" . $conn->error;
 	}
-	if ($debug)$conn->close();
-	$result = file_get_contents('https://plateforme.api-agro.fr/api/push/1.0/cledesol-retour-utilisateur/realtime/push/?pushkey=' . $api_pushkey . '&apikey=' . $api_key, null, stream_context_create(array(
+	if ($debug)
+        $conn->close();
+    */
+    /* 'cledesol-retour-utilisateur' */
+    $options = array(
         'http' => array(
             'method' => 'POST',
             'header' => 'Content-Type: application/json' . "\r\n"
             . 'Content-Length: ' . strlen($raw_data) . "\r\n",
             'content' => $raw_data,
-        ),
-	)));
+        )
+	);
+    
+	$result = file_get_contents('https://plateforme.api-agro.fr/api/push/1.0/' . $api_dataset . '/realtime/push/?pushkey=' . $api_pushkey . '&apikey=' . $api_key, false, stream_context_create($options));
 }
 ?>

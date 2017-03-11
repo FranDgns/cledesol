@@ -15,9 +15,6 @@
     <script src="javascripts/bootstrap.min.js"></script>  
     <script src="javascripts/Chart.min.js"></script>  
     <script src="javascripts/application.js"></script>
-    <style>
-    </style>
-    <script src="javascripts/form2json.js"></script>
   </head>
   <body>
     <nav class="navbar navbar-default">
@@ -70,7 +67,7 @@
     <div id="soil-fix" class="modal fade" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
-          <form id="newInput" method="POST" action="#" onsubmit="Cledesol.serializeAndPush()">
+          <form id="new-observation" method="POST" action="/api/observations/create.php">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title">Nouvelle observation</h4>
@@ -93,42 +90,54 @@
                 <label for="nom_referentiel">Nom r&eacute;f&eacute;rentiel (type de sol)&nbsp;:</label>
                 <input id="nom_referentiel" name="nom_referentiel" type="text" class="form-control" />
               </div>
-              <div class="form-group">
-                <label for="calcaire">Calcaire&nbsp;:</label>
-                <select id="calcaire" name="calcaire" required  class="form-control">
-                  <option disabled selected value>-- Choisissez une valeur --</option>
-                  <option value="calcaire">Calcaire</option>
-                  <option value="non-calcaire">Non calcaire</option>
-                </select>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="calcaire">Calcaire&nbsp;:</label>
+                    <select id="calcaire" name="calcaire" required  class="form-control">
+                      <option disabled selected value>-- Choisissez une valeur --</option>
+                      <option value="calcaire">Calcaire</option>
+                      <option value="non-calcaire">Non calcaire</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="pierre">Pierrosit&eacute;&nbsp;:</label>
+                    <select id="pierre" name="pierrosite" required  class="form-control">
+                      <option disabled selected value>-- Choisissez une valeur --</option>
+                      <option value="caillou">Caillouteux</option>
+                      <option value="peu-caillou">Peu caillouteux</option>
+                      <option value="non-caillou">Non caillouteux</option>
+                    </select>
+                  </div>
+                </div>
               </div>
-              <div class="form-group">
-                <label for="pierre">Pierrosit&eacute;&nbsp;:</label>
-                <select id="pierre" name="pierrosite" required  class="form-control">
-                  <option disabled selected value>-- Choisissez une valeur --</option>
-                  <option value="caillou">Caillouteux</option>
-                  <option value="peu-caillou">Peu caillouteux</option>
-                  <option value="non-caillou">Non caillouteux</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="texture">Texture&nbsp;:</label>
-                <select id="texture" name="texture" required class="form-control" >
-                  <option disabled selected value>-- Choisissez une valeur --</option>
-                  <option value="sable">Sable</option>
-                  <option value="argile">Argile</option>
-                  <option value="limon-argile">Limon argileux</option>
-                  <option value="sable-limon">Sable limoneux</option>
-                  <option value="limon">Limon</option>
-                  <option value="limon-sable">Limon sableux</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="hydro">Hydromorphie&nbsp;:</label>
-                <select id="hydro" name="hydromorphie" required class="form-control" >
-                  <option disabled selected value>-- Choisissez une valeur --</option>
-                  <option value="non-hydromorphe">Non hydromorphe</option>
-                  <option value="hydromorphe">Hydromorphe</option>
-                </select>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="texture">Texture&nbsp;:</label>
+                    <select id="texture" name="texture" required class="form-control" >
+                      <option disabled selected value>-- Choisissez une valeur --</option>
+                      <option value="sable">Sable</option>
+                      <option value="argile">Argile</option>
+                      <option value="limon-argile">Limon argileux</option>
+                      <option value="sable-limon">Sable limoneux</option>
+                      <option value="limon">Limon</option>
+                      <option value="limon-sable">Limon sableux</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="hydro">Hydromorphie&nbsp;:</label>
+                    <select id="hydro" name="hydromorphie" required class="form-control" >
+                      <option disabled selected value>-- Choisissez une valeur --</option>
+                      <option value="non-hydromorphe">Non hydromorphe</option>
+                      <option value="hydromorphe">Hydromorphe</option>
+                    </select>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="modal-footer">
