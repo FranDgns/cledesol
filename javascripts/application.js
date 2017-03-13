@@ -109,21 +109,26 @@ Cledesol = {// objet javascript : on definit des attributs ou des valeures (sous
         "Access-Control-Allow-Headers": "X-Requested-With",
         "X-Requested-With": "XMLHttpRequest"
       },
-      success: function (msg) {
-        if (msg) {
-          console.log('Push réussi' + describe(msg));
+      success: function (data, status, request) {
+        console.log(data);
+        if (data !== null && data.status !== null && data.status === 'ok') {
+          console.log('Push réussi');
           Cledesol.drawAllObservations();
           $("#soil-fix").modal("hide");
+        } else {
+          console.log('Push échoué');
         }
-        else {
-          console.log('Push échoué');}
+      },
+      error: function (request, status, error) {
+        console.log(status);
+        console.log(error);
       }
     });
   },
 
   drawAllObservations: function () {
     $.ajax('/api/observations/index.php', {
-      success: function(data,status,request) {
+      success: function(data, status, request) {
         var json = JSON.parse(data);
         console.log(json);
         json.records.forEach(function(element) {

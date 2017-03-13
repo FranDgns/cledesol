@@ -46,6 +46,9 @@ if ($_POST || $debug) {
         )
 	);
     
-	$result = file_get_contents('https://plateforme.api-agro.fr/api/push/1.0/' . $api_dataset . '/realtime/push/?pushkey=' . $api_pushkey . '&apikey=' . $api_key, false, stream_context_create($options));
+	$response = file_get_contents('https://plateforme.api-agro.fr/api/push/1.0/' . $api_dataset . '/realtime/push/?pushkey=' . $api_pushkey . '&apikey=' . $api_key, false, stream_context_create($options));
+    print($response);
+} else {
+    print("{'message': 'Can create observation in POST only'}");
 }
 ?>
