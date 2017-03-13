@@ -148,7 +148,7 @@ Cledesol = {// objet javascript : on definit des attributs ou des valeures (sous
   // Calcule le nombre d'observation dans un rayon donné
   estimateObservationCount: function (lat, lng, radius) {
     var point = [lat, lng];
-    var increment = 25;
+    var increment = 5;
     var button = $('#evaluate-button');
     $("input[name='x']").val(lat);
     $("input[name='y']").val(lng);
