@@ -28,4 +28,4 @@ Ouvrir le fichier `http://localhost:8000` dans un navigateur.
 
 Clé de Sol est sous licence [GNU/AGPLv3](http://opensource.org/licenses/AGPL-3.0).
 
-Copyright 2017 Francesca DEGAN, Astrid DEBAUVE, Mathias DEFIVES, Brice TEXIER.
+Copyright 2017 Francesca DEGAN, Astrid DEBAUVE, Mathias DEFIVES, Brice TEXIER, Rémy BRIOUDE.
