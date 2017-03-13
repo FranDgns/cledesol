@@ -6,7 +6,7 @@ $debug = 0;
 
 if ($_POST || $debug) {
 	if ($debug)
-        $raw_data = '{"id_utilisateur" : "123457","x" : "1,123456","y" : "1,123456","reponse" : "1","idsol" : "ABC123","nom_officiel" : "bla", "nom_referentiel" : "bla", "calcaire" : "bla", "pierrosite" : "bla", "texture" : "bla", "hydromorphie" : "bla"}';
+        $raw_data = '{"id_utilisateur":"123457","x":"1,123456","y":"1,123456","reponse":"1","idsol":"ABC123","nom_officiel":"bla","nom_referentiel":"bla","calcaire":"bla","pierrosite":"bla","texture":"bla","hydromorphie":"bla"}';
 	else
         $raw_data = file_get_contents('php://input');
     /*
